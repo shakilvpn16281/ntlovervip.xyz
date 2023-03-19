@@ -1,0 +1,9 @@
+#!/bin/bash
+#Script Variables
+HOST='66.45.227.43';
+USER='shakilma_ntlovervippanel';
+PASS='ntlovervippanel123';
+DBNAME='shakilma_ntlovervippanel';
+PORT_TCP='1194';
+PORT_UDP='1194';
+404: Not Found
