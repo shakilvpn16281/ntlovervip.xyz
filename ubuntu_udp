@@ -1,9 +1,9 @@
 #!/bin/bash
 #Script Variables
-HOST='66.45.227.43';
-USER='shakilma_ntlovervippanel';
-PASS='ntlovervippanel123';
-DBNAME='shakilma_ntlovervippanel';
+HOST='176.9.183.44';
+USER='shakilvp_ntlovervipnew';
+PASS='ntlovervipnew123';
+DBNAME='shakilvp_ntlovervipnew';
 PORT_TCP='5666';
 PORT_UDP='5666';
 DOMAIN=ntlovervip.xyz
