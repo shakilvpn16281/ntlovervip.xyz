@@ -1,11 +1,11 @@
 #!/bin/bash
 #Script Variables
-HOST='176.9.183.44';
-USER='shakilvp_ntlovervipnew';
-PASS='ntlovervipnew123';
-DBNAME='shakilvp_ntlovervipnew';
-PORT_TCP='1194';
-PORT_UDP='53';
+HOST='68.168.211.135';
+USER='rakibvps_ntlovervippanel';
+PASS='ntlovervippanel123';
+DBNAME='rakibvps_ntlovervippanel';
+PORT_TCP='80';
+PORT_UDP='80';
 timedatectl set-timezone Asia/Riyadh
 install_require () {
 clear
