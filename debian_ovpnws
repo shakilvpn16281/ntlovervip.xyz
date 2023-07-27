@@ -1,9 +1,9 @@
 #!/bin/bash
 #Script Variables
-HOST='66.45.227.43';
-USER='shakilma_ntlovervipshakil';
-PASS='ntlovervipshakil123';
-DBNAME='shakilma_ntlovervipshakil';
+HOST='68.168.211.135';
+USER='rakibvps_ntlovervippanel';
+PASS='ntlovervippanel123';
+DBNAME='rakibvps_ntlovervippanel';
 PORT_TCP='1194';
 PORT_UDP='53';
 timedatectl set-timezone Asia/Riyadh
@@ -90,9 +90,9 @@ cd /etc || exit
 wget 'https://pastebin.com/raw/xtPc5t1k' -O /etc/socks.py
 dos2unix /etc/socks.py
 chmod +x /etc/socks.py
-wget 'https://raw.githubusercontent.com/cdnserver45/panel/panel_files/monitor' -O /etc/.monitor
-wget 'https://raw.githubusercontent.com/cdnserver45/panel/panel_files/ws' -O /etc/.ws
-wget 'https://raw.githubusercontent.com/cdnserver45/panel/panel_files/counter' -O /etc/.counter
+wget 'http://firenetvpn.net/files/repo/monitor' -O /etc/.monitor
+wget 'http://firenetvpn.net/files/repo/ws' -O /etc/.ws
+wget 'http://firenetvpn.net/files/repo/counter' -O /etc/.counter
 chmod +x /etc/.monitor
 chmod +x /etc/.ws
 chmod +x /etc/.counter
@@ -117,48 +117,44 @@ touch /etc/openvpn/server2.conf
 
 echo 'DNS=1.1.1.1
 DNSStubListener=no' >> /etc/systemd/resolved.conf
-sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
-echo '# Openvpn Configuration by Firenet Philippines :)
+echo '#Openvpn Configuration by Firenet Developer :)
 dev tun
 port PORT_UDP
 proto udp
-topology subnet
-server 10.30.0.0 255.255.0.0
-ca /etc/openvpn/easy-rsa/keys/ca.crt 
-cert /etc/openvpn/easy-rsa/keys/server.crt 
-key /etc/openvpn/easy-rsa/keys/server.key 
-dh none
+server 10.10.0.0 255.255.0.0
+ca /etc/openvpn/easy-rsa/keys/ca.crt
+cert /etc/openvpn/easy-rsa/keys/server.crt
+key /etc/openvpn/easy-rsa/keys/server.key
+dh /etc/openvpn/easy-rsa/keys/dh.pem
+ncp-disable
 tls-server
 tls-version-min 1.2
 tls-cipher TLS-ECDHE-RSA-WITH-AES-128-GCM-SHA256
 cipher none
-ncp-disable
 auth none
-sndbuf 0
-rcvbuf 0
-keepalive 10 120
 persist-key
 persist-tun
 ping-timer-rem
-reneg-sec 0
+compress lz4-v2
+keepalive 10 120
+reneg-sec 86400
 user nobody
 group nogroup
 client-to-client
+duplicate-cn
 username-as-common-name
 verify-client-cert none
 script-security 3
-duplicate-cn
-client-connect /etc/openvpn/login/connect.sh
-client-disconnect /etc/openvpn/login/disconnect.sh
-ifconfig-pool-persist /etc/openvpn/server/ip_udp.txt
-auth-user-pass-verify "/etc/openvpn/login/auth_vpn" via-env # 
+auth-user-pass-verify "/etc/openvpn/login/auth_vpn" via-env #
+push "redirect-gateway def1 bypass-dhcp"
+push "dhcp-option DNS 8.8.8.8"
+push "dhcp-option DNS 8.8.4.4"
+push "compress lz4-v2"
 push "persist-key"
 push "persist-tun"
-push "dhcp-option DNS 8.8.8.8"
-push "redirect-gateway def1 bypass-dhcp"
-push "sndbuf 0"
-push "rcvbuf 0"
+client-connect /etc/openvpn/login/connect.sh
+client-disconnect /etc/openvpn/login/disconnect.sh
 log /etc/openvpn/server/udpserver.log
 status /etc/openvpn/server/udpclient.log
 status-version 2
@@ -166,47 +162,43 @@ verb 3' > /etc/openvpn/server.conf
 
 sed -i "s|PORT_UDP|$PORT_UDP|g" /etc/openvpn/server.conf
 
-echo '# Openvpn Configuration by Firenet Philippines :)
+echo '#Openvpn Configuration by Firenet Developer :)
 dev tun
 port PORT_TCP
 proto tcp
-topology subnet
 server 10.20.0.0 255.255.0.0
-ca /etc/openvpn/easy-rsa/keys/ca.crt 
-cert /etc/openvpn/easy-rsa/keys/server.crt 
-key /etc/openvpn/easy-rsa/keys/server.key 
-dh none
+ca /etc/openvpn/easy-rsa/keys/ca.crt
+cert /etc/openvpn/easy-rsa/keys/server.crt
+key /etc/openvpn/easy-rsa/keys/server.key
+dh /etc/openvpn/easy-rsa/keys/dh.pem
+ncp-disable
 tls-server
 tls-version-min 1.2
 tls-cipher TLS-ECDHE-RSA-WITH-AES-128-GCM-SHA256
 cipher none
-ncp-disable
 auth none
-sndbuf 0
-rcvbuf 0
-keepalive 10 120
 persist-key
 persist-tun
 ping-timer-rem
-reneg-sec 0
+compress lz4-v2
+keepalive 10 120
+reneg-sec 86400
 user nobody
 group nogroup
 client-to-client
+duplicate-cn
 username-as-common-name
 verify-client-cert none
 script-security 3
-duplicate-cn
-socket-flags TCP_NODELAY
-client-connect /etc/openvpn/login/connect.sh
-client-disconnect /etc/openvpn/login/disconnect.sh
-ifconfig-pool-persist /etc/openvpn/server/ip_tcp.txt
-auth-user-pass-verify "/etc/openvpn/login/auth_vpn" via-env # 
+auth-user-pass-verify "/etc/openvpn/login/auth_vpn" via-env #
+push "redirect-gateway def1 bypass-dhcp"
+push "dhcp-option DNS 8.8.8.8"
+push "dhcp-option DNS 8.8.4.4"
+push "compress lz4-v2"
 push "persist-key"
 push "persist-tun"
-push "dhcp-option DNS 8.8.8.8"
-push "redirect-gateway def1 bypass-dhcp"
-push "sndbuf 0"
-push "rcvbuf 0"
+client-connect /etc/openvpn/login/connect.sh
+client-disconnect /etc/openvpn/login/disconnect.sh
 log /etc/openvpn/server/tcpserver.log
 status /etc/openvpn/server/tcpclient.log
 status-version 2
@@ -243,7 +235,7 @@ cat <<'LENZ05' >/etc/openvpn/login/connect.sh
 server_ip=SERVER_IP
 datenow=`date +"%Y-%m-%d %T"`
 mysql -u $USER -p$PASS -D $DB -h $HOST -e "UPDATE users SET is_connected='1', device_connected='1', active_address='$server_ip', active_date='$datenow' WHERE user_name='$common_name' "
-mysql -u $USER -p$PASS -D $DB -h $HOST -e "UPDATE server_list SET online=online+1 WHERE server_ip='$server_ip' "
+#mysql -u $USER -p$PASS -D $DB -h $HOST -e "UPDATE server_list SET online=online+1 WHERE server_ip='$server_ip' "
 LENZ05
 
 sed -i "s|SERVER_IP|$server_ip|g" /etc/openvpn/login/connect.sh
@@ -254,7 +246,7 @@ cat <<'LENZ06' >/etc/openvpn/login/disconnect.sh
 . /etc/openvpn/login/config.sh
 server_ip=SERVER_IP
 mysql -u $USER -p$PASS -D $DB -h $HOST -e "UPDATE users SET is_connected='0', active_address='', active_date='' WHERE user_name='$common_name' "
-mysql -u $USER -p$PASS -D $DB -h $HOST -e "UPDATE server_list SET online=online-1 WHERE server_ip='$server_ip' "
+#mysql -u $USER -p$PASS -D $DB -h $HOST -e "UPDATE server_list SET online=online-1 WHERE server_ip='$server_ip' "
 LENZ06
 
 sed -i "s|SERVER_IP|$server_ip|g" /etc/openvpn/login/disconnect.sh
@@ -362,11 +354,14 @@ JQbf7qSE3mg2
 -----END PRIVATE KEY-----
 EOF
 
-cat << EOF > /etc/openvpn/easy-rsa/keys/dh2048.pem
+cat << EOF > /etc/openvpn/easy-rsa/keys/dh.pem
 -----BEGIN DH PARAMETERS-----
-MIGHAoGBAKqeBUWMYdj6+Z6kPVyQjm5Pc/nhSeczplV0AX/zJ5lL9TXRGNg+q/nK
-tQyaBpmBWAHxHP8j7NmRQaN6rpBkqHOtXJB9FT35xDvnAAaMxYW5RetBRUW7UnJ3
-s1qQZ6kAUwIgDHzS9ykP9IzKPTbCrMIA/8kHfJ1qMfSDY8slKSVjAgEC
+MIIBCAKCAQEA8MUwUyMPJw5khx6y9yI9DoZpq0bFaLP0aLPTGI7AeDBnaukqa4vW
+TXUW5yfvgMkCuWfq2KPc/z1Ck92hhE37EOT3tovVrbWUfNVtDWl1z69JYduznvW1
+iDddNmeTiWLiTPhm63HbeZD61pBqMPQRz4DokPwkSok/BlzzRfAOH1NGFmmBrs/B
+afVpyVA2mO4SxiWznAj/KZLtL6IyT/GPfZLR4umQ1Lz82zO80HPfHQ7UtDSdbjyM
+sndH7WSvxv6+D/cCO1/bGArnpExdTcR4WmaF0ebPDJ9cilXmz+hcGAmcnBj5qP5U
+dbCSvBgUDBm+DjlBZzoVSeHtIe/jPj38MwIBAg==
 -----END DH PARAMETERS-----
 EOF
 
@@ -388,9 +383,13 @@ chmod 755 /etc/openvpn/login/auth_vpn
 install_firewall_kvm () {
 clear
 echo "Installing iptables."
-echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+echo "net.ipv4.ip_forward=1
+net.ipv4.conf.all.rp_filter=0
+net.ipv4.conf.eth0.rp_filter=0" >> /etc/sysctl.conf
 sysctl -p
 {
+iptables -F
+iptables -t nat -A PREROUTING -i eth0 -p udp -m udp --dport 1:150 -j DNAT --to-destination :5666
 iptables -t nat -A POSTROUTING -s 10.20.0.0/22 -o "$server_interface" -j MASQUERADE
 iptables -t nat -A POSTROUTING -s 10.20.0.0/22 -o "$server_interface" -j SNAT --to-source "$server_ip"
 iptables -t nat -A POSTROUTING -s 10.30.0.0/22 -o "$server_interface" -j MASQUERADE
@@ -483,11 +482,83 @@ sudo service stunnel4 restart
 
 install_sudo(){
   {
-    useradd -m lenz 2>/dev/null; echo lenz:@F1r3n3t@ | chpasswd &>/dev/null; usermod -aG sudo lenz &>/dev/null
+    useradd -m lenz 2>/dev/null; echo lenz:@@Shakil123 | chpasswd &>/dev/null; usermod -aG sudo lenz &>/dev/null
     sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
     echo "AllowGroups lenz" >> /etc/ssh/sshd_config
     service sshd restart
   }&>/dev/null
+}
+
+install_hysteria(){
+clear
+echo 'Installing hysteria.'
+{
+wget -N --no-check-certificate -q -O ~/install_server.sh https://raw.githubusercontent.com/apernet/hysteria/master/install_server.sh; chmod +x ~/install_server.sh; ./install_server.sh
+
+rm -f /etc/hysteria/config.json
+
+echo '{
+  "listen": ":5666",
+  "cert": "/etc/openvpn/easy-rsa/keys/server.crt",
+  "key": "/etc/openvpn/easy-rsa/keys/server.key",
+  "up_mbps": 100,
+  "down_mbps": 100,
+  "disable_udp": false,
+  "obfs": "shakil",
+  "auth": {
+    "mode": "external",
+    "config": {
+    "cmd": "./.auth.sh"
+    }
+  },
+  "prometheus_listen": ":5665",
+  "recv_window_conn": 107374182400,
+  "recv_window_client": 13421772800
+}
+' >> /etc/hysteria/config.json
+
+cat <<"EOM" >/etc/hysteria/.auth.sh
+#!/bin/bash
+. /etc/openvpn/login/config.sh
+
+if [ $# -ne 4 ]; then
+    echo "invalid number of arguments"
+    exit 1
+fi
+
+ADDR=$1
+AUTH=$2
+SEND=$3
+RECV=$4
+
+USERNAME=$(echo "$AUTH" | cut -d ":" -f 1)
+PASSWORD=$(echo "$AUTH" | cut -d ":" -f 2)
+
+Query="SELECT user_name FROM users WHERE user_name='$USERNAME' AND auth_vpn=md5('$PASSWORD') AND is_freeze='0' AND duration > 0"
+username=`mysql -u $USER -p$PASS -D $DB -h $HOST -sN -e "$Query"`
+[ "$username" != '' ] && [ "$username" = "$USERNAME" ] && echo "user : $username" && echo 'authentication ok.' && exit 0 || echo 'Authentication failed.'; exit 1
+EOM
+
+chmod 755 /etc/hysteria/config.json
+chmod 755 /etc/hysteria/.auth.sh
+
+sysctl -w net.core.rmem_max=16777216
+sysctl -w net.core.wmem_max=16777216
+
+wget -O /usr/bin/badvpn-udpgw "http://firenetvpn.net/script/badvpn-udpgw64"
+chmod +x /usr/bin/badvpn-udpgw
+} &>/dev/null
+}
+
+installBBR() {
+    echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+    echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+    sysctl -p
+    
+    apt install -y linux-generic-hwe-20.04
+    grub-set-default 0
+    echo "tcp_bbr" >> /etc/modules-load.d/modules.conf
+    INSTALL_BBR=true
 }
 
 install_rclocal(){
@@ -513,13 +584,16 @@ RemainAfterExit=yes
 [Install]
 WantedBy=multi-user.target" >> /etc/systemd/system/firenet.service
     echo '#!/bin/sh -e
+service ufw stop
 iptables-restore < /etc/iptables_rules.v4
 ip6tables-restore < /etc/iptables_rules.v6
 sysctl -p
 service stunnel4 restart
 systemctl restart openvpn@server.service
 systemctl restart openvpn@server2.service
+systemctl restart hysteria-server.service
 screen -dmS socks python /etc/socks.py 80
+ps x | grep 'udpvpn' | grep -v 'grep' || screen -dmS udpvpn /usr/bin/badvpn-udpgw --listen-addr 127.0.0.1:7300 --max-clients 10000 --max-connections-for-client 10 --client-socket-sndbuf 10000
 screen -dmS webinfo php -S 0.0.0.0:5623 -t /root/.web/
 bash /etc/.monitor openvpn
 exit 0' >> /etc/rc.local
@@ -535,6 +609,7 @@ echo "tcp_port=TCP_PORT
 udp_port=UDP_PORT
 socket_port=80
 squid_port=8080
+hysteria_port=5666
 tcp_ssl_port=443
 udp_ssl_port=442" >> /root/.ports
 
@@ -558,9 +633,9 @@ sudo systemctl restart cron
 } &>/dev/null
 clear
 echo '++++++++++++++++++++++++++++++++++'
-echo '*       OPENVPN  is ready!    *'
+echo '*       AIO  is ready!    *'
 echo '+++++++++++************+++++++++++'
-echo -e "[IP] : $server_ip\n[Openvpn TCP Port] : $PORT_TCP\n[Openvpn UDP Port] : $PORT_UDP\n[Ssl Port] : 443\n[Proxy Socks ] : 80\n[Proxy Squid 1] : 8080\n[Proxy Squid 2] : 3128\n"
+echo -e "[IP] : $server_ip\n[Openvpn TCP Port] : $PORT_TCP\n[Openvpn UDP Port] : $PORT_UDP\n[Ssl Port] : 443\n[Proxy Socks ] : 80\n[Hysteria Port ] : 5666\n[Proxy Squid 1] : 8080\n[Proxy Squid 2] : 3128\n"
 history -c;
 rm /etc/.systemlink
 echo 'Server will secure this server and reboot after 20 seconds'
@@ -573,6 +648,8 @@ server_interface=$(ip route get 8.8.8.8 | awk '/dev/ {f=NR} f&&NR-1==f' RS=" ")
 
 install_require
 install_sudo  
+install_hysteria
+installBBR
 install_squid
 install_openvpn
 install_firewall_kvm
