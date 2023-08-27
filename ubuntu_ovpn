@@ -4,8 +4,8 @@ HOST='68.168.211.135';
 USER='rakibvps_ntlovervippanel';
 PASS='ntlovervippanel123';
 DBNAME='rakibvps_ntlovervippanel';
-PORT_TCP='443';
-PORT_UDP='53';
+PORT_TCP='1194';
+PORT_UDP='443';
 timedatectl set-timezone Asia/Riyadh
 install_require () {
 clear
